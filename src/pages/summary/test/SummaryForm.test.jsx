@@ -1,25 +1,42 @@
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
+import userEvent from '@testing-library/user-event'
 import SummaryForm from "../SummaryForm";
 
 test("initial onditionst", () => {
   render(<SummaryForm />);
-  const checkbox = screen.getByRole("checkbox", {name: /terms and conditions/i,});
+  const checkbox = screen.getByRole("checkbox", {
+    name: /terms and conditions/i,
+  });
   expect(checkbox).not.toBeChecked();
 
-  const confirmButton = screen.getByRole("button", {name: /confirm order/i,});
+  const confirmButton = screen.getByRole("button", { name: /confirm order/i });
   expect(confirmButton).toBeDisabled();
 });
 
-test("checking checkbox enables button", () => {
+test("checking checkbox enables button", async () => {
+  const user = userEvent.setup();
+
   render(<SummaryForm />);
-  const checkbox = screen.getByRole("checkbox", {name: /terms and conditions/i,});
-  const confirmButton = screen.getByRole("button", {name: /confirm order/i,});
+  const checkbox = screen.getByRole("checkbox", {
+    name: /terms and conditions/i,
+  });
+  const confirmButton = screen.getByRole("button", { name: /confirm order/i });
 
-  fireEvent.click(checkbox);
+  await user.click(checkbox);
   expect(confirmButton).toBeEnabled();
-  fireEvent.click(checkbox);
+  await user.click(checkbox);
   expect(confirmButton).toBeDisabled();
 });
+
+test('popover response to hover', async () => {
+  const user = userEvent.setup();
+
+  //popover starts out hidden
+
+  //popover appears on mouseover of checkbox label
+
+  //popover disappears when we mouse out
+})
 
 // import { render, screen } from "@testing-library/react";
 // import SummaryForm from "../SummaryForm";
