@@ -1,6 +1,6 @@
 import Col from "react-bootstrap/Col";
-import Row from "react-bootstrap/Row";
 import Form from "react-bootstrap/Form";
+import Row from "react-bootstrap/Row";
 import { useOrderDetails } from "../../contexts/OrderDetails";
 
 export default function ScoopOptions({ name, imagePath }) {
@@ -18,15 +18,19 @@ export default function ScoopOptions({ name, imagePath }) {
       <Form.Group
         controlId={`${name}-count`}
         as={Row}
-        style={{ margintTop: "10px" }}
+        style={{ marginTop: "10px" }}
       >
-        <Form.Label column xs="6" style={{textAlign: "right"}}>
+        <Form.Label column xs="6" style={{ textAlign: "right" }}>
           {name}
         </Form.Label>
+        <Col xs="5" style={{ textAlign: "left" }}>
+          <Form.Control
+            type="number"
+            defaultValue={0}
+            onChange={handleChange}
+          />
+        </Col>
       </Form.Group>
-      <Col xs="5" style={{ textAlign: "left" }}>
-        <Form.Control type="number" defaultValue={0} onChange={handleChange} />
-      </Col>
     </Col>
   );
 }
